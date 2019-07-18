@@ -1,0 +1,48 @@
+.gradle
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+// Never push .env files since they might have keys, passwords, etc
+*.env
+
+.DS_Store
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+.idea/*
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+target/
+
+changelog-changesets.xml
+
+local.log
+
+buildSrc/out
+
+awscli-bundle.zip
+awscli-bundle/
+okta-aws
+docker/package.json
+
+node_modules/
+

@@ -1,0 +1,43 @@
+# Default Spring properties, embedded in the JAR file.
+# See https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# Boot application server configuration
+server:
+  port: 8101
+
+# Custom properties
+environment-name: local
+
+spring:
+  application:
+    name: workshop
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        # By default only /actuator/health and /actuator/info are enabled via web.
+        include: health, info, metrics, scheduledtasks
+
+logging:
+  level:
+    org:
+      zalando:
+        logbook: TRACE
+
+#logbook:
+#  format:
+#    style: json
+#  exclude:
+#    - /actuator/health
+#  filter.enabled: true
+#  secure-filter.enabled: true
+#  obfuscate:
+#    headers:
+#      - Authorization
+#      - X-Secret
+#    parameters:
+#      - access_token
+#      - password
+#    write:
+#      chunk-size: 1000
