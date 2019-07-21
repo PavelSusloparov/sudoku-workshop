@@ -1,0 +1,25 @@
+version: '2'
+services:
+  db:
+    container_name: mysql01
+    image: mysql:latest
+    env_file:
+      - .sec.env
+    volumes:
+      - "./conf.d:/etc/mysql/conf.d:ro"
+      - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+  web:
+    container_name: web01
+    restart: always
+    image: workshop:0.0.1-SNAPSHOT
+    env_file:
+      - .sec.env
+    ports:
+      - "8102:8102"
+    depends_on:
+      - db
+  start_dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - db
+    command: db:3306

@@ -33,6 +33,8 @@ plugins {
 
 	// SonarQube is a code review tool to detect bugs, vulnerabilities and code smells
 	id("org.sonarqube")                             version "2.7"
+
+	id("com.google.cloud.tools.jib") version "1.4.0"
 }
 
 configure<JavaPluginConvention> {
@@ -54,6 +56,25 @@ tasks.withType<KotlinCompile<KotlinJvmOptions>> {
 repositories {
 	mavenCentral()
 	jcenter()
+}
+
+jib {
+	container {
+		ports = listOf("8102")
+		mainClass = "com.example.workshop.WorkshopApplicationKt"
+
+		// good defauls intended for Java 8 (>= 8u191) containers
+		jvmFlags = listOf(
+			"-server",
+			"-Djava.awt.headless=true",
+			"-XX:InitialRAMFraction=2",
+			"-XX:MinRAMFraction=2",
+			"-XX:MaxRAMFraction=2",
+			"-XX:+UseG1GC",
+			"-XX:MaxGCPauseMillis=100",
+			"-XX:+UseStringDeduplication"
+		)
+	}
 }
 
 // Jacoco Plugin
@@ -89,6 +110,8 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 				minimum = BigDecimal.valueOf(0.75)
 
 				excludes = listOf(
+					"com.example.workshop.WorkshopApplication",
+					"com.example.workshop.WorkshopApplicationKt"
 				)
 			}
 		}
@@ -105,6 +128,8 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 				minimum = BigDecimal.valueOf(0.75)
 
 				excludes = listOf(
+					"com.example.workshop.WorkshopApplication",
+					"com.example.workshop.WorkshopApplicationKt"
 				)
 			}
 		}
@@ -245,12 +270,16 @@ dependencies {
 	implementation("org.slf4j:slf4j-api:1.7.26")
 	implementation("org.codehaus.janino:janino:2.6.1")
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.9.9.1")
-//	implementation("org.slf4j:slf4j-log4j12:1.7.26")
 
-	// Other
-//	implementation("org.springframework:springfox-web:5.1.8.RELEASE")
+	implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
+	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 
-	implementation("org.springframework.boot:spring-boot-starter-tomcat:$springBootVersion")
+	implementation("se.transmode.gradle:gradle-docker:1.2")
+
+	//MySQL
+	implementation("mysql:mysql-connector-java:8.0.16")
+
 	// Swagger OpenApi spec
 	implementation("io.springfox:springfox-swagger2:$swagger2Version")
 	implementation("io.springfox:springfox-swagger-ui:$swagger2Version")
@@ -274,6 +303,10 @@ dependencies {
 	// Create fake names for a variety of things: https://github.com/DiUS/java-faker
 	implementation("com.github.javafaker:javafaker:0.17.2")
 
+	//Spring Boot Starter Test
+	testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
+		exclude(module = "junit")
+	}
 	// JUnit 5
 	testImplementation("org.junit.platform:junit-platform-console:1.4.0")
 	testImplementation(enforcedPlatform("org.junit:junit-bom:5.3.2"))   		  // use JUnit 5
@@ -287,7 +320,6 @@ dependencies {
 	componentTestCompile(kotlin("reflect"))
 
 	componentTestCompile("io.springfox:springfox-swagger2:$swagger2Version")
-	componentTestCompile("org.springframework.boot:spring-boot-starter-amqp:$springBootVersion")
 //	componentTestCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
 
 	componentTestCompile("io.cucumber:cucumber-java:$cucumberVersion")
