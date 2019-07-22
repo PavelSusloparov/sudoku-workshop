@@ -112,7 +112,7 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 				excludes = listOf(
 					"com.example.workshop.WorkshopApplication",
 					"com.example.workshop.WorkshopApplicationKt",
-					//Appl.ication
+					//Application
 					"com.example.workshop.collections.*",
 					"com.example.workshop.configuration.*",
 					"com.example.workshop.controllers.*"
@@ -134,7 +134,7 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 				excludes = listOf(
 					"com.example.workshop.WorkshopApplication",
 					"com.example.workshop.WorkshopApplicationKt",
-					//Appl.ication
+					//Application
 					"com.example.workshop.collections.*",
 					"com.example.workshop.configuration.*",
 					"com.example.workshop.controllers.*"
