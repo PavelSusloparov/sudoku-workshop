@@ -1,0 +1,6 @@
+#DataSourceSettings#
+#LocalDataSource: cucumber-workshop
+#BEGIN#
+<data-source source="LOCAL" name="cucumber-workshop" uuid="c547430c-874d-436a-82d1-1802ee134451"><database-info product="MySQL" version="8.0.16" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.15 (Revision: 79a4336f140499bd22dd07f02b708e163844e3d5)" dbms="MYSQL" exact-version="8.0.16" exact-driver-version="8.0"><extra-name-characters>#@</extra-name-characters><identifier-quote-string>`</identifier-quote-string></database-info><case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/><driver-ref>mysql.8</driver-ref><synchronize>true</synchronize><jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver><jdbc-url>jdbc:mysql://localhost:3308/main</jdbc-url><secret-storage>master_key</secret-storage><user-name>workshop_rwx</user-name><driver-properties><property name="autoReconnect" value="true"/><property name="zeroDateTimeBehavior" value="CONVERT_TO_NULL"/><property name="tinyInt1isBit" value="false"/><property name="characterEncoding" value="utf8"/><property name="characterSetResults" value="utf8"/><property name="yearIsDateType" value="false"/></driver-properties></data-source>
+#END#
+

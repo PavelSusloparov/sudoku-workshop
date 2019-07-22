@@ -111,7 +111,11 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 
 				excludes = listOf(
 					"com.example.workshop.WorkshopApplication",
-					"com.example.workshop.WorkshopApplicationKt"
+					"com.example.workshop.WorkshopApplicationKt",
+					//Appl.ication
+					"com.example.workshop.collections.*",
+					"com.example.workshop.configuration.*",
+					"com.example.workshop.controllers.*"
 				)
 			}
 		}
@@ -129,7 +133,11 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 
 				excludes = listOf(
 					"com.example.workshop.WorkshopApplication",
-					"com.example.workshop.WorkshopApplicationKt"
+					"com.example.workshop.WorkshopApplicationKt",
+					//Appl.ication
+					"com.example.workshop.collections.*",
+					"com.example.workshop.configuration.*",
+					"com.example.workshop.controllers.*"
 				)
 			}
 		}
@@ -233,8 +241,8 @@ tasks.register<Test>("contractTest") {
 
 val ktlintCheck: DefaultTask by tasks
 test.dependsOn(ktlintCheck)
-test.dependsOn(tasks["componentTest"])
-test.dependsOn(tasks["contractTest"])
+//test.dependsOn(tasks["componentTest"])
+//test.dependsOn(tasks["contractTest"])
 test.finalizedBy(jacocoTestCoverageVerification, jacocoTestReport)
 
 // execute linters on check
@@ -271,7 +279,6 @@ dependencies {
 	implementation("org.codehaus.janino:janino:2.6.1")
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.9.9.1")
 
-	implementation("org.springframework.boot:spring-boot-starter:$springBootVersion")
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 
@@ -322,6 +329,11 @@ dependencies {
 	componentTestCompile("io.springfox:springfox-swagger2:$swagger2Version")
 //	componentTestCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
 
+	//Spring Boot Starter Test
+	componentTestCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
+		exclude(module = "junit")
+	}
+
 	componentTestCompile("io.cucumber:cucumber-java:$cucumberVersion")
 	componentTestCompile("io.cucumber:cucumber-junit:$cucumberVersion")
 	componentTestCompile("io.cucumber:cucumber-spring:$cucumberVersion")
@@ -333,8 +345,12 @@ dependencies {
 	contractTestCompile(kotlin("stdlib-jdk8"))
 
 	contractTestCompile("io.springfox:springfox-swagger2:$swagger2Version")
-	contractTestCompile("org.springframework.boot:spring-boot-starter-amqp:$springBootVersion")
 //	contractTestCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
+
+	//Spring Boot Starter Test
+	contractTestCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
+		exclude(module = "junit")
+	}
 
 	contractTestCompile("io.cucumber:cucumber-java:$cucumberVersion")
 	contractTestCompile("io.cucumber:cucumber-junit:$cucumberVersion")
@@ -347,8 +363,12 @@ dependencies {
 	testUtilCompile("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
 
 	testUtilCompile("io.springfox:springfox-swagger2:$swagger2Version")
-	testUtilCompile("org.springframework.boot:spring-boot-starter-amqp:$springBootVersion")
 //	testUtilCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
+
+	//Spring Boot Starter Test
+	testUtilCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
+		exclude(module = "junit")
+	}
 
 	testUtilCompile("io.cucumber:cucumber-java:$cucumberVersion")
 	testUtilCompile("io.cucumber:cucumber-junit:$cucumberVersion")

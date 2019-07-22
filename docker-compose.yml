@@ -1,15 +1,22 @@
 version: '2'
 services:
+  proxy:
+    build: nginx/
+    container_name: workshop-proxy
+    ports:
+      - "80:80"
   db:
     container_name: mysql01
     image: mysql:latest
+    ports:
+      - "3308:3306"
     env_file:
       - .sec.env
     volumes:
       - "./conf.d:/etc/mysql/conf.d:ro"
       - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
-  web:
-    container_name: web01
+  simple-calculator:
+    container_name: simple-calculator
     restart: always
     image: workshop:0.0.1-SNAPSHOT
     env_file:
@@ -23,3 +30,4 @@ services:
     depends_on:
       - db
     command: db:3306
+
