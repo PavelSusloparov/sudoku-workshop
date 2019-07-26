@@ -295,7 +295,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-devtools:$springBootVersion")
 
 	// Spring Boot logging request and response
-//	implementation("org.zalando:logbook-spring-boot-starter:$logbookVersion")
+	implementation("org.zalando:logbook-spring-boot-starter:$logbookVersion")
 
 	// JMXMP Remote: https://stackoverflow.com/a/41230062/9698467
 	implementation("org.jvnet.opendmk:jmxremote_optional:1.0_01-ea")
@@ -327,7 +327,7 @@ dependencies {
 	componentTestCompile(kotlin("reflect"))
 
 	componentTestCompile("io.springfox:springfox-swagger2:$swagger2Version")
-//	componentTestCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
+	componentTestCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
 
 	//Spring Boot Starter Test
 	componentTestCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
@@ -345,7 +345,7 @@ dependencies {
 	contractTestCompile(kotlin("stdlib-jdk8"))
 
 	contractTestCompile("io.springfox:springfox-swagger2:$swagger2Version")
-//	contractTestCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
+	contractTestCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
 
 	//Spring Boot Starter Test
 	contractTestCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
@@ -363,7 +363,7 @@ dependencies {
 	testUtilCompile("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
 
 	testUtilCompile("io.springfox:springfox-swagger2:$swagger2Version")
-//	testUtilCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
+	testUtilCompile("org.zalando:logbook-spring-boot-starter:$logbookVersion")
 
 	//Spring Boot Starter Test
 	testUtilCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion") {
