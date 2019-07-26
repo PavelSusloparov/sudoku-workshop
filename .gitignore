@@ -1,6 +1,6 @@
 .gradle
-build/
-out/
+calculator/build/
+calculator/out/
 !gradle/wrapper/gradle-wrapper.jar
 
 // Never push .env files since they might have keys, passwords, etc

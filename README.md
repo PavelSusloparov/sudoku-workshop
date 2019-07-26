@@ -10,7 +10,7 @@ Cucumber + WireMock example
 
 3. Clone this repository
 
-## Service start
+## Services start
 
 ```bash
 docker-compose up
