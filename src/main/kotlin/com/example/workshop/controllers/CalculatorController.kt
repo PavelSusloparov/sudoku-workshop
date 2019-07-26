@@ -28,9 +28,8 @@ class CalculatorController(
      */
     @PostMapping("/sum", consumes = [ MediaType.APPLICATION_JSON_UTF8_VALUE ], produces = [ MediaType.APPLICATION_JSON_UTF8_VALUE ])
     fun sumTwoArguments(@Validated @RequestBody req: CalculatorRequest): ResponseEntity<CalculatorResponse> {
-        logger.info("Sum 2 arguments: ${req.argument1}+${req.argument2}")
         val result = simpleCalculatorService.sum(req.argument1!!, req.argument2!!)
-        logger.info("Result = $result")
+        logger.info("Sum 2 arguments: ${req.argument1} + ${req.argument2} = $result")
         return ResponseEntity(CalculatorResponse(result = result.toString()), HttpStatus.OK)
     }
 }

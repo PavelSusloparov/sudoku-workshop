@@ -1,10 +1,5 @@
 version: '2'
 services:
-  proxy:
-    build: nginx/
-    container_name: workshop-proxy
-    ports:
-      - "80:80"
   db:
     container_name: mysql01
     image: mysql:latest
