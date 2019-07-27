@@ -1,6 +1,7 @@
 package com.example.workshop.controllers
 
-import com.example.workshop.collections.CalculatorRequest
+import com.example.workshop.collections.CalculatorTwoArgumentsRequest
+import com.example.workshop.collections.CalculatorOneArgumentRequest
 import com.example.workshop.collections.CalculatorResponse
 import com.example.workshop.services.SimpleCalculatorService
 import org.springframework.http.HttpStatus
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.logging.Logger
 
 @RestController
-@RequestMapping("/example/")
+@RequestMapping("/calculator/v1/")
 class CalculatorController(
     private val simpleCalculatorService: SimpleCalculatorService
 ) {
@@ -27,9 +28,29 @@ class CalculatorController(
      * Sum of 2 arguments
      */
     @PostMapping("/sum", consumes = [ MediaType.APPLICATION_JSON_UTF8_VALUE ], produces = [ MediaType.APPLICATION_JSON_UTF8_VALUE ])
-    fun sumTwoArguments(@Validated @RequestBody req: CalculatorRequest): ResponseEntity<CalculatorResponse> {
+    fun sumTwoArguments(@Validated @RequestBody req: CalculatorTwoArgumentsRequest): ResponseEntity<CalculatorResponse> {
         val result = simpleCalculatorService.sum(req.argument1!!, req.argument2!!)
         logger.info("Sum 2 arguments: ${req.argument1} + ${req.argument2} = $result")
+        return ResponseEntity(CalculatorResponse(result = result.toString()), HttpStatus.OK)
+    }
+
+    /**
+     * Difference between 2 arguments
+     */
+    @PostMapping("/diff", consumes = [ MediaType.APPLICATION_JSON_UTF8_VALUE ], produces = [ MediaType.APPLICATION_JSON_UTF8_VALUE ])
+    fun diffTwoArguments(@Validated @RequestBody req: CalculatorTwoArgumentsRequest): ResponseEntity<CalculatorResponse> {
+        val result = simpleCalculatorService.diff(req.argument1!!, req.argument2!!)
+        logger.info("Difference between 2 arguments: ${req.argument1} - ${req.argument2} = $result")
+        return ResponseEntity(CalculatorResponse(result = result.toString()), HttpStatus.OK)
+    }
+
+    /**
+     * Sin of an argument
+     */
+    @PostMapping("/sin", consumes = [ MediaType.APPLICATION_JSON_UTF8_VALUE ], produces = [ MediaType.APPLICATION_JSON_UTF8_VALUE ])
+    fun sin(@Validated @RequestBody req: CalculatorOneArgumentRequest): ResponseEntity<CalculatorResponse> {
+        val result = simpleCalculatorService.sin(req.argument1!!)
+        logger.info("Sinus of arguments: sin(${req.argument1}) = $result")
         return ResponseEntity(CalculatorResponse(result = result.toString()), HttpStatus.OK)
     }
 }

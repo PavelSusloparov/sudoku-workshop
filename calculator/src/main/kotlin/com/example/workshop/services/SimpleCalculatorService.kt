@@ -5,5 +5,9 @@ import org.springframework.stereotype.Component
 @Component
 class SimpleCalculatorService {
 
-    fun sum(argument1: String, argument2: String) = argument1.toInt() + argument2.toInt()
+    fun sum(argument1: Int, argument2: Int) = argument1 + argument2
+
+    fun diff(argument1: Int, argument2: Int) = argument1 - argument2
+
+    fun sin(x: Double) = java.lang.Math.sin(x)
 }
