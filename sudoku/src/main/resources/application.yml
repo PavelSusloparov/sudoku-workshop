@@ -55,19 +55,6 @@ logging:
       zalando:
         logbook: TRACE
 
-#logbook:
-#  format:
-#    style: json
-#  exclude:
-#    - /actuator/health
-#  filter.enabled: true
-#  secure-filter.enabled: true
-#  obfuscate:
-#    headers:
-#      - Authorization
-#      - X-Secret
-#    parameters:
-#      - access_token
-#      - password
-#    write:
-#      chunk-size: 1000
+logbook:
+  format:
+    style: json

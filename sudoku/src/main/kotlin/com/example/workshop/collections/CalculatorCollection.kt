@@ -18,3 +18,11 @@ class CalculatorOneArgumentRequest {
 }
 
 class CalculatorResponse(var result: String)
+
+class SudokuRequest {
+
+    @NotNull(value = "sudoku is required")
+    val sudoku: String? = null
+}
+
+class SudokuResponse(var result: String)
