@@ -13,7 +13,7 @@ Cucumber + WireMock example
 ## Services start
 
 ```bash
-docker-compose up
+./run.sh
 ```
 
 ## Verification

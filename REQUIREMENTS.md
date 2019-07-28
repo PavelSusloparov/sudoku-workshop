@@ -2,20 +2,30 @@
 
 ## Feature 1
 
-As a projectors hardware engineer I would like to have ability to calculate projector angle based on the building height and distance to the building so I can configure the projector
+As a sudoku lover I would like to get answers for all sudoku in the book, so I can compare my answer with expected answers.
 
 Acceptance criteria:
-- Rest API JSON interface
-- Given total height of the wall, floor adjustment and distance to the wall given in inches
-- Height of the wall, distance to the wall, floor adjustment is Integer
-- Projector upper angle must be 18 inches lower then the upper point of the wall. If wall total height is less then 18 inches, angle should be 0.
-- Calculation results should be reported on. Reporting is based on Height of the building, distance to the building and projector angle
+* Sudoku book should contain 5 puzzles
+
+Technical considerations:
+* Rest API JSON interface
+
+Sudoku input:
+* Sudoku size is 3
+* Sudoku can not have missed lines
+* Sudoku can not have repeated numbers in one line or column
+* Numbers can be from 1 to 9 only
 
 ## Feature 2
 
-As a projector hardware engineer I would like to have ability to specify height of the wall and distance to the wall with a floating point so I can increase the projector precision
+As a kid sudoku lover I would like to have the sudoku books with smaller size, so I can train my skills.
 
 Acceptance criteria:
-- Height of the wall and distance to the wall can have a floating point
+- Sudoku size is 2
 
-[Visualization](https://drive.google.com/drive/folders/1Hqj7idDcsRBgANXqGcKZxBIARErUxz0J)
+## Bug fix for Sudoku service
+
+* Exception handling for sudoku service.
+* Return appropriate message, if sudoku has missed lines
+* Return appropriate message, if sudoku has repeated numbers in one line or column
+* Return appropriate message, if sudoku has numbers not from the allowed range 1..9

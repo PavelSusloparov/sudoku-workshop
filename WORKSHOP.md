@@ -1,13 +1,29 @@
 # Workshop
 
-1. Implement Feature 1 by applying BDD practises - Write integration test first, write unit test, implement the simple formula.
-2. New requirement - we need to handle doubles now - complex formula.
-3. Calculator service does not support it - Make a new feature for calculator service.
-4. Add a new integration test for handling doubles.
-5. Add new complex formula.
+## Agenda
 
-Outcome - have 2 endpoints with simple formula and complex formula available in business service.
-Have functionality tested by component tests.
+1. Implement Feature 1.
+2. Implement Feature 2.
+3. If time allow, work on bug fix from [Bug fix for Sudoku service](REQUIREMENTS.md) section.
 
-TODO: Come up with requirements and mapping requirements to tests. Write feature files in Gerkhen format based on tests.
+## Approach
+
+Apply TDD practise:
+* Start with writing component test
+* Add just enough methods in application in order to test to run and fail
+* Write unit test
+* Add application logic
+* Repeat, until you have one step working
+* Work on another step, eventually component test should pass
+
+For Component test, stub Sudoku service with WireMock.
+
+For Contract tests call Sudoku service API.
+
+For Unit tests use Mockito to mock other classes dependencies.
+
+## Outcome
+
+* Have 1 endpoint, which generates a Sudoku book with answers.
+* Have component, contract, unit tests written.
 
