@@ -1,6 +1,12 @@
-# cucumber-workshop
+# Testing workshop
 
-Cucumber + WireMock example
+The repo is example of integration between 2 applications with Rest API JSON. Integration includes best practises, such as:
+
+* Contract testing with Cucumber and JUnit
+* Component testing with WireMock, Cucumber and JUnit
+* Unit testing with Mockito and JUnit
+* Unit tests code coverage with Jacoco
+* API documentation with OpenAPI specification
 
 ## Pre-requirements
 
@@ -33,4 +39,8 @@ Enter URL in your browser
 http://0.0.0.0:8103/actuator/health
 ```
 You should see - {"status": "UP"}
+
+## Begin Workshop
+
+
 

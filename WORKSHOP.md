@@ -1,12 +1,10 @@
 # Workshop
 
-## Agenda
+## Step 1
 
-1. Implement Feature 1.
-2. Implement Feature 2.
-3. If time allow, work on bug fix from [Bug fix for Sudoku service](REQUIREMENTS.md) section.
+1. Implement Feature 1 in [requirements document](REQUIREMENTS.md).
 
-## Approach
+### Approach
 
 Apply TDD practise:
 * Start with writing component test
@@ -22,8 +20,20 @@ For Contract tests call Sudoku service API.
 
 For Unit tests use Mockito to mock other classes dependencies.
 
-## Outcome
+### Outcome
 
 * Have 1 endpoint, which generates a Sudoku book with answers.
 * Have component, contract, unit tests written.
+
+## Step 2
+
+Implement Feature 2 in [requirements document](REQUIREMENTS.md).
+
+### Approach
+
+Similar approach for step 1 with additional complexity of sudoku service.
+
+## Step 3
+
+Work on bug fix from [Bug fix for Sudoku service](REQUIREMENTS.md) section.
 
