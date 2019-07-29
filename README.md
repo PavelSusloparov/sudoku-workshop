@@ -42,5 +42,5 @@ You should see - {"status": "UP"}
 
 ## Begin Workshop
 
-
+[Continue here](WORKSHOP.md)
 
