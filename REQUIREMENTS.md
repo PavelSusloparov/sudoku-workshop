@@ -2,7 +2,7 @@
 
 ## Feature 1
 
-As a sudoku lover I would like to get answers for all sudoku in the book, so I can compare my answer with expected answers.
+As a sudoku enthusiast I would like to get answers for all sudoku in the book, so I can compare my answer with expected answers.
 
 Acceptance criteria:
 * Sudoku book should contain 5 puzzles
@@ -18,7 +18,7 @@ Sudoku input:
 
 ## Feature 2
 
-As a kid sudoku lover I would like to have the sudoku books with smaller size, so I can train my skills.
+As a kid sudoku enthusiast I would like to have the sudoku book with smaller size sudokus, so I can solve easier sudoku.
 
 Acceptance criteria:
 - Sudoku size is 2
