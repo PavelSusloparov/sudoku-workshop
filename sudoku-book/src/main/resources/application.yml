@@ -58,3 +58,6 @@ logging:
 logbook:
   format:
     style: json
+
+sudoku:
+  host: http://localhost:8102
