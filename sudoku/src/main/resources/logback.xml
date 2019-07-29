@@ -40,7 +40,7 @@
         </else>
     </if>
 
-    <logger name="com.example.workshop" level="info"/>
+    <logger name="com.workshop.sudoku" level="info"/>
 
     <root level="info">
         <appender-ref ref="ASYNC"/>

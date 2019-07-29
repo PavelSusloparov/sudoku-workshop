@@ -15,7 +15,7 @@
         <appender-ref ref="STDOUT" />
     </appender>
 
-    <logger name="com.example" level="debug"/>
+    <logger name="com.workshop" level="debug"/>
 
     <root level="info">
         <appender-ref ref="ASYNC" />

@@ -1,0 +1,60 @@
+# Default Spring properties, embedded in the JAR file.
+# See https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# Boot application server configuration
+server:
+  port: 8103
+
+# Custom properties
+environment-name: local
+
+spring:
+  application:
+    name: workshop
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/main
+    username: workshop_rwx
+    password: jk9
+    # Spring boot nowUtc uses HikariCP by default! https://github.com/spring-projects/spring-boot/issues/6013
+    # Hikari-specific properties.
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:4}
+      pool-name: dbpool
+      auto-commit: false
+    # Spring JPA
+    # JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)
+    data:
+      jpa:
+        repositories:
+          enabled: false
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL57Dialect
+      generate-ddl: false
+      hibernate:
+        ddl-auto: none
+      open-in-view: false
+      properties:
+        org:
+          hibernate:
+            envers:
+              do_not_audit_optimistic_locking_field: false
+    h2:
+      console:
+        enabled: true
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        # By default only /actuator/health and /actuator/info are enabled via web.
+        include: health, info, metrics, scheduledtasks
+
+logging:
+  level:
+    org:
+      zalando:
+        logbook: TRACE
+
+logbook:
+  format:
+    style: json

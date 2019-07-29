@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <!-- For JUL->SLF4J, to eliminate  -->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Use direct Logentries logging if we have the token -->
+    <if condition='!property("LOGENTRIES_TOKEN").isEmpty()'>
+        <then>
+            <appender name="LE"
+                      class="com.logentries.logback.LogentriesAppender">
+                <Debug>False</Debug>
+                <Token>LOGENTRIES_TOKEN</Token>
+                <!-- ^ You might wonder how this works.
+                It looks up the env var, if it has a value then use it.
+                -->
+                <Ssl>True</Ssl>
+                <facility>USER</facility>
+                <layout>
+                    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                </layout>
+            </appender>
+
+            <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+                <appender-ref ref="LE"/>
+            </appender>
+        </then>
+        <else>
+            <!-- No logentries token, so just point ASYNC at STDOUT -->
+            <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+                <appender-ref ref="STDOUT"/>
+            </appender>
+        </else>
+    </if>
+
+    <logger name="com.example.workshop" level="info"/>
+
+    <root level="info">
+        <appender-ref ref="ASYNC"/>
+    </root>
+</configuration>

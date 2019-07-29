@@ -1,1 +1,1 @@
-rootProject.name = "workshop"
+rootProject.name = "sudoku"

@@ -38,7 +38,7 @@ plugins {
 }
 
 configure<JavaPluginConvention> {
-	group = "com.example.workshop"
+	group = "com.workshop.sudoku"
 	version = "0.0.1-SNAPSHOT"
 	sourceCompatibility = JavaVersion.VERSION_1_8
 	targetCompatibility = JavaVersion.VERSION_1_8
@@ -61,7 +61,7 @@ repositories {
 jib {
 	container {
 		ports = listOf("8102")
-		mainClass = "com.example.workshop.WorkshopApplicationKt"
+		mainClass = "com.workshop.sudoku.WorkshopApplicationKt"
 
 		// good defauls intended for Java 8 (>= 8u191) containers
 		jvmFlags = listOf(
@@ -101,7 +101,7 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 		rule {
 			enabled = true
 			element = "CLASS"
-			includes = listOf("com.example.workshop.*")
+			includes = listOf("com.sudoku.sudoku.*")
 
 			// Coverage for classes. Strive for 75%.
 			limit {
@@ -110,12 +110,12 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 				minimum = BigDecimal.valueOf(0.75)
 
 				excludes = listOf(
-					"com.example.workshop.WorkshopApplication",
-					"com.example.workshop.WorkshopApplicationKt",
+					"com.sudoku.sudoku.WorkshopApplication",
+					"com.sudoku.sudoku.WorkshopApplicationKt",
 					//Application
-					"com.example.workshop.collections.*",
-					"com.example.workshop.configuration.*",
-					"com.example.workshop.controllers.*"
+					"com.sudoku.sudoku.collections.*",
+					"com.sudoku.sudoku.configuration.*",
+					"com.sudoku.sudoku.controllers.*"
 				)
 			}
 		}
@@ -124,7 +124,7 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 		rule {
 			enabled = true
 			element = "CLASS"
-			includes = listOf("com.example.workshop.*")
+			includes = listOf("com.sudoku.sudoku.*")
 
 			limit {
 				counter = "LINE"
@@ -132,12 +132,12 @@ val jacocoTestCoverageVerification by tasks.getting(JacocoCoverageVerification::
 				minimum = BigDecimal.valueOf(0.75)
 
 				excludes = listOf(
-					"com.example.workshop.WorkshopApplication",
-					"com.example.workshop.WorkshopApplicationKt",
+					"com.sudoku.sudoku.WorkshopApplication",
+					"com.sudoku.sudoku.WorkshopApplicationKt",
 					//Application
-					"com.example.workshop.collections.*",
-					"com.example.workshop.configuration.*",
-					"com.example.workshop.controllers.*"
+					"com.sudoku.sudoku.collections.*",
+					"com.sudoku.sudoku.configuration.*",
+					"com.sudoku.sudoku.controllers.*"
 				)
 			}
 		}

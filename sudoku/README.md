@@ -1,4 +1,4 @@
-# Calculator
+# Sudoku
 
 ## Generate application image
 

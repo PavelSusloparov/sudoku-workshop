@@ -10,14 +10,22 @@ services:
     volumes:
       - "./conf.d:/etc/mysql/conf.d:ro"
       - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
-  sudoku-solver:
-    container_name: sudoku-solver
+  sudoku:
+    container_name: sudoku
     restart: always
-    image: workshop:0.0.1-SNAPSHOT
+    image: sudoku:0.0.1-SNAPSHOT
     env_file:
       - .sec.env
     ports:
       - "8102:8102"
+  sudoku-book:
+    container_name: sudoku-book
+    restart: always
+    image: sudoku-book:0.0.1-SNAPSHOT
+    env_file:
+      - .sec.env
+    ports:
+      - "8103:8103"
     depends_on:
       - db
   start_dependencies:
