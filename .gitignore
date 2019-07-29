@@ -1,7 +1,7 @@
 .gradle
 sudoku/build/
-#sudoku-book/build/
-#sudoku-book/out/
+sudoku-book/build/
+sudoku-book/out/
 !gradle/wrapper/gradle-wrapper.jar
 
 // Never push .env files since they might have keys, passwords, etc
