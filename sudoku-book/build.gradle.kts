@@ -294,6 +294,9 @@ dependencies {
 	// Spring Boot automatic re-run in Intelij Idea
 	implementation("org.springframework.boot:spring-boot-devtools:$springBootVersion")
 
+	// Actuator
+	implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
+
 	// Spring Boot logging request and response
 	implementation("org.zalando:logbook-spring-boot-starter:$logbookVersion")
 

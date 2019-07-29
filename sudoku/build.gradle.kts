@@ -280,7 +280,6 @@ dependencies {
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.9.9.1")
 
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 
 	implementation("se.transmode.gradle:gradle-docker:1.2")
 
@@ -293,6 +292,9 @@ dependencies {
 
 	// Spring Boot automatic re-run in Intelij Idea
 	implementation("org.springframework.boot:spring-boot-devtools:$springBootVersion")
+	
+	// Actuator
+	implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
 
 	// Spring Boot logging request and response
 	implementation("org.zalando:logbook-spring-boot-starter:$logbookVersion")
