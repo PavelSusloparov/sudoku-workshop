@@ -60,4 +60,4 @@ logbook:
     style: json
 
 sudoku:
-  host: http://localhost:8102
+  host: http://sudoku:8102
