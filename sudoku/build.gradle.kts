@@ -53,9 +53,27 @@ tasks.withType<KotlinCompile<KotlinJvmOptions>> {
 	}
 }
 
+// Artifactory Credentials from ~/.gradle/gradle.properties
+val artifactory_user: String by project
+val artifactory_password: String by project
+
 repositories {
 	mavenCentral()
 	jcenter()
+
+	// FieldLens Artifactory Repository
+	maven {
+		url = uri("https://fieldlens.jfrog.io/fieldlens/libs-all")
+		credentials {
+			username = artifactory_user
+			password = artifactory_password
+		}
+	}
+
+	// Amazon Redshift's repository
+	maven {
+		url = uri("https://s3.amazonaws.com/redshift-maven-repository/release")
+	}
 }
 
 jib {
@@ -257,6 +275,7 @@ jacocoTestCoverageVerification.dependsOn(test)
 val sonarqube: SonarQubeTask by tasks
 sonarqube.dependsOn(jacocoTestReport)
 
+val cornerstoneVersion = "0.3.0"
 val springBootVersion = "2.1.4.RELEASE"
 val cucumberVersion = "4.3.0"
 val wiremockVersion = "2.1.1.RELEASE"
@@ -279,6 +298,10 @@ dependencies {
 	implementation("org.codehaus.janino:janino:2.6.1")
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.9.9.1")
 
+	// Spring Boot & Cornerstone
+	implementation("com.wework.redtech:cs-spring:$cornerstoneVersion")              // Cornerstone's Spring libraries
+	implementation("com.wework.redtech:cs-jpa:$cornerstoneVersion")                 // Cornerstone's JPA libraries
+	
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
 
 	implementation("se.transmode.gradle:gradle-docker:1.2")

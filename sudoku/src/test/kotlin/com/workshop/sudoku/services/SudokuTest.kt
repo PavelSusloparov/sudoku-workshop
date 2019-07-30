@@ -5,7 +5,6 @@ import com.workshop.sudoku.services.Sudoku.Cell
 import com.workshop.sudoku.services.Sudoku.Point
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.util.ArrayList
 
@@ -49,8 +48,6 @@ class SudokuTest {
             |729|164|835
             |365|782|491
         """.trimMargin().toBoard()))
-
-        assertTrue(false)
     }
 
     @Test

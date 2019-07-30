@@ -14,7 +14,9 @@ The repo is example of integration between 2 applications with Rest API JSON. In
 
 2. Install [docker-compose](https://github.com/Yelp/docker-compose/blob/master/docs/install.md)
 
-3. Clone this repository
+3. Follow Artifactory secrets setup for [RedTech Environment Setup](https://connect.we.co/display/FL/How+to+Set+Up+Your+Local+RedTech+Development+Environment "RedTech Environment Setup")
+
+4. Clone this repository
 
 ## Services start
 

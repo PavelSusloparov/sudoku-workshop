@@ -21,5 +21,3 @@ abstract class BaseEntity(
     @Column(name = "updated_on", columnDefinition = "TIMESTAMP")
     var updatedOn: LocalDateTime = createdOn
 )
-
-
