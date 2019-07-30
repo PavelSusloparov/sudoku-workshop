@@ -301,7 +301,7 @@ dependencies {
 	// Spring Boot & Cornerstone
 	implementation("com.wework.redtech:cs-spring:$cornerstoneVersion")              // Cornerstone's Spring libraries
 	implementation("com.wework.redtech:cs-jpa:$cornerstoneVersion")                 // Cornerstone's JPA libraries
-	
+
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
 
@@ -402,4 +402,8 @@ dependencies {
 	testUtilCompile("io.cucumber:cucumber-spring:$cucumberVersion")
 	testUtilCompile("junit:junit:$junit4Version")
 	testUtilCompile("org.springframework.cloud:spring-cloud-contract-wiremock:$wiremockVersion")
+
+	// Spring Boot & Cornerstone
+	testUtilCompile("com.wework.redtech:cs-spring:$cornerstoneVersion")              // Cornerstone's Spring libraries
+	testUtilCompile("com.wework.redtech:cs-jpa:$cornerstoneVersion")                 // Cornerstone's JPA libraries
 }
