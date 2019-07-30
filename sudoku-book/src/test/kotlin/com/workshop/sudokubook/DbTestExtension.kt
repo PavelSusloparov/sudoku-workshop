@@ -1,4 +1,4 @@
-package com.wework.costmanagement
+package com.workshop.sudokubook
 
 import com.wework.jdbc.buildTestDataSource
 import org.junit.jupiter.api.extension.ExtensionContext
