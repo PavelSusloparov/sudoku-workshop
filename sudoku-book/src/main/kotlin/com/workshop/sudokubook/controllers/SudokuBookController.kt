@@ -1,6 +1,5 @@
 package com.workshop.sudokubook.controllers
 
-import com.workshop.sudokubook.collections.SudokuBookRequest
 import com.workshop.sudokubook.collections.SudokuBookResponse
 import com.workshop.sudokubook.services.SudokuBookService
 import org.springframework.http.HttpStatus
@@ -21,7 +20,7 @@ class SudokuBookController(
      */
     @PostMapping("/v1/create", consumes = [ MediaType.APPLICATION_JSON_UTF8_VALUE ], produces = [ MediaType.APPLICATION_JSON_UTF8_VALUE ])
     fun solveV1(): ResponseEntity<SudokuBookResponse> {
-        val result = sudokuBookService.create()
-        return ResponseEntity(SudokuBookResponse(result = result), HttpStatus.OK)
+        sudokuBookService.create()
+        return ResponseEntity(SudokuBookResponse(result = "Sudoku book successfully created"), HttpStatus.OK)
     }
 }

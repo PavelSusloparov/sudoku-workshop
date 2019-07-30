@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <!-- (Using XML format because you can get help from IDEA from the XML schema) -->
+    <changeSet author="PavelSusloparov" id="2019-07-29 11:57pm">
+        <comment>Create sudoku tracker table</comment>
+
+        <createTable tableName="sudoku_tracker">
+
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="sudoku" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="solve_counter" type="INT" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="updated_on" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>

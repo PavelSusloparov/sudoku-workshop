@@ -292,7 +292,7 @@ dependencies {
 
 	// Spring Boot automatic re-run in Intelij Idea
 	implementation("org.springframework.boot:spring-boot-devtools:$springBootVersion")
-	
+
 	// Actuator
 	implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
 
@@ -322,6 +322,7 @@ dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter-api")           // JUnit 5 public API for writing tests and extensions
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")           // JUnit 5 engine to run tests
 	testImplementation("org.junit.jupiter:junit-jupiter-params")        // JUnit 5 parameterized tests
+	testImplementation("com.nhaarman:mockito-kotlin-kt1.1:1.5.0")		  // Mock
 
 	//Cucumber support libraries for integration tests with mocks
 	componentTestCompile(platform(kotlin("bom", version = "1.3.21")))
