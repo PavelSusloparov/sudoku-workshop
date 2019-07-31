@@ -52,17 +52,12 @@ class SudokuBookService(
      * Transform a sudoku book to collection of sudokus
      */
     fun transform(): List<String> {
-        return try {
-            val sudokuBook = read()
-            val sudokuList = sudokuBook?.split("============\n".toRegex()) ?: emptyList()
-            sudokuList.forEach {
-                logger.info { "sudokuList: $it" }
-            }
-            sudokuList
-        } catch (ex: Exception) {
-            logger.severe { "Failed to transform the sudoku book. Exception: ${ex.printStackTrace()}" }
-            emptyList()
+        val sudokuBook = read()
+        val sudokuList = sudokuBook?.split("============\n".toRegex()) ?: emptyList()
+        sudokuList.forEach {
+            logger.info { "sudokuList: $it" }
         }
+        return sudokuList
     }
 
     /**

@@ -3,6 +3,7 @@ package com.workshop.sudokubook.services
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doNothing
 import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.doThrow
 import com.workshop.sudokubook.client.SudokuHttpClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -19,6 +20,7 @@ import com.workshop.sudokubook.dao.SudokuTrackerDao
 import com.workshop.sudokubook.entity.SudokuTrackerEntity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
 class SudokuBookServiceTest {
@@ -57,7 +59,7 @@ class SudokuBookServiceTest {
             doNothing().whenever(sudokuBookService).saveToFile(any())
         }
         @Test
-        fun `success create`() {
+        fun `verify that create is successful if the sudoku book is not empty`() {
             sudokuBookService.create()
 
             verify(sudokuBookService, times(1)).solve(sudokuBookRequest.sudoku)
@@ -80,19 +82,62 @@ class SudokuBookServiceTest {
         }
 
         @Test
-        fun `success transform`() {
+        fun `verify that transform return a list of sudoku if sudoku book is not empty`() {
             sudokuBookService.transform().run {
                 assertEquals(listOf(sudokuBookRequest.sudoku), this)
             }
         }
 
         @Test
-        fun `empty file transform`() {
+        fun `verify that transform returns empty list of sudoku if sudoku book is empty`() {
             doReturn(null).whenever(sudokuBookService).read()
 
             sudokuBookService.transform().run {
                 assertEquals(emptyList<String>(), this)
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("solve")
+    internal inner class Solve {
+
+        private lateinit var sudokuBookRequest: SudokuBookRequest
+        private lateinit var sudokuBookResponse: SudokuBookResponse
+
+        @BeforeEach
+        fun setup() {
+            sudokuBookRequest = Fixture.SudokuBook.sudokuBookRequest()
+            sudokuBookResponse = Fixture.SudokuBook.sudokuBookResponse()
+
+            sudokuBookService = spy(sudokuBookService)
+            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read()
+        }
+
+        @Test
+        fun `verify that exception is handled gracefully if sudoku solve call fails`() {
+            doThrow(RuntimeException("Failed to call Sudoku service /solve")).whenever(sudokuHttpClient).solveSudoku(any())
+            sudokuBookService.solve(sudokuBookRequest.sudoku).run {
+                assertNull(this)
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("save")
+    internal inner class Save {
+
+        @BeforeEach
+        fun setup() {
+            sudokuBookService = spy(sudokuBookService)
+        }
+
+        @Test
+        fun `verify that sudoku is not saved is empty`() {
+            sudokuBookService.save(null)
+
+            verify(sudokuBookService, times(0)).saveToFile(any())
+            verify(sudokuBookService, times(0)).saveToDatabase(any())
         }
     }
 
@@ -108,7 +153,7 @@ class SudokuBookServiceTest {
         }
 
         @Test
-        fun `success saveToFile`() {
+        fun `verify that file is created after saveToFile`() {
             sudokuBookService.saveToFile(sudokuBookResponse.result)
             val output = javaClass.classLoader.getResource("files/sudoku-book-solved.txt")
             assertNotNull(output)
@@ -129,7 +174,7 @@ class SudokuBookServiceTest {
         }
 
         @Test
-        fun `success saveToDatabase record exist`() {
+        fun `verify that record is updated in database if it is already exist`() {
             doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).findBySudoku(sudokuBookResponse.result)
             sudokuTrackerEntity.solveCounter = 1
             doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).save(sudokuTrackerEntity)
@@ -140,7 +185,7 @@ class SudokuBookServiceTest {
         }
 
         @Test
-        fun `success saveToDatabase record not exist`() {
+        fun `verify that record is created in database if it is not exist`() {
             doReturn(null).whenever(sudokuTrackerDao).findBySudoku(sudokuBookResponse.result)
             doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).save(any())
 
