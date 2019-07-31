@@ -1,6 +1,7 @@
 package com.workshop.sudokubook.services
 
 import com.workshop.sudokubook.client.SudokuHttpClient
+import com.workshop.sudokubook.collections.SudokuBookRequest
 import com.workshop.sudokubook.collections.SudokuRequest
 import com.workshop.sudokubook.dao.SudokuTrackerDao
 import com.workshop.sudokubook.entity.SudokuTrackerEntity
@@ -35,7 +36,7 @@ class SudokuBookService(
      * Create a solved sudoku book
      */
     fun create() {
-        val sudokuList = read()
+        val sudokuList = transform()
         sudokuList.forEach {
             val solvedSudoku = solve(it)
             save(solvedSudoku)
@@ -45,16 +46,21 @@ class SudokuBookService(
     /**
      * Read a sudoku book
      */
-    fun read(): List<String> {
+    fun read() = javaClass.classLoader.getResource("files/sudoku-book.txt")?.readText()
+
+    /**
+     * Transform a sudoku book to collection of sudokus
+     */
+    fun transform(): List<String> {
         return try {
-            val sudokuBook = javaClass.classLoader.getResource("files/sudoku-book.txt")?.readText()!!
-            val sudokuList = sudokuBook.split("============".toRegex())
+            val sudokuBook = read()
+            val sudokuList = sudokuBook?.split("============\n".toRegex()) ?: emptyList()
             sudokuList.forEach {
                 logger.info { "sudokuList: $it" }
             }
             sudokuList
         } catch (ex: Exception) {
-            logger.severe { "Failed to read the sudoku book. Exception: $ex" }
+            logger.severe { "Failed to transform the sudoku book. Exception: ${ex.printStackTrace()}" }
             emptyList()
         }
     }
@@ -64,12 +70,12 @@ class SudokuBookService(
      */
     fun solve(sudoku: String): String? {
         return try {
-            val sudokuRequest = SudokuRequest(sudokuString)
-            val sudokuBookResponse = sudokuHttpClient.solveSudoku(sudokuRequest)
+            val sudokuBookRequest = SudokuBookRequest(sudokuString)
+            val sudokuBookResponse = sudokuHttpClient.solveSudoku(sudokuBookRequest)
             logger.info { "sudokuBookResponse: $sudokuBookResponse" }
             sudokuBookResponse.result
         } catch (ex: Exception) {
-            logger.severe { "Failed to solve the sudoku. Exception: $ex" }
+            logger.severe { "Failed to solve the sudoku. Exception: ${ex.printStackTrace()}" }
             null
         }
     }
@@ -90,7 +96,8 @@ class SudokuBookService(
      * Save sudoku to a file
      */
     fun saveToFile(sudoku: String) {
-        val file = File("files/sudoku-book.txt")
+        val filePath = javaClass.classLoader.getResource("files/sudoku-book.txt")?.path ?: throw Exception("Failed to find initial sudoku book")
+        val file = File(filePath.replace("sudoku-book.txt", "sudoku-book-solved.txt"))
         file.writeText(sudoku)
         file.writeText("============")
     }
@@ -98,13 +105,13 @@ class SudokuBookService(
     /**
      * Save sudoku to the changelog
      */
-    fun saveToDatabase(sudoku: String) {
+    fun saveToDatabase(sudoku: String): SudokuTrackerEntity {
         var sudokuTrackerEntity = sudokuTrackerDao.findBySudoku(sudoku)
         if (sudokuTrackerEntity == null) {
             sudokuTrackerEntity = SudokuTrackerEntity(sudoku = sudoku, solveCounter = 0)
         } else {
             sudokuTrackerEntity.solveCounter = sudokuTrackerEntity.solveCounter + 1
         }
-        sudokuTrackerDao.save(sudokuTrackerEntity)
+        return sudokuTrackerDao.save(sudokuTrackerEntity)
     }
 }

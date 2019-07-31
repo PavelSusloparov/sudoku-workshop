@@ -1,11 +1,24 @@
 package com.workshop.sudokubook.services
 
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.doNothing
+import com.nhaarman.mockito_kotlin.doReturn
 import com.workshop.sudokubook.client.SudokuHttpClient
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.spy
+import com.nhaarman.mockito_kotlin.times
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
+import com.workshop.sudokubook.Fixture
+import com.workshop.sudokubook.collections.SudokuBookRequest
+import com.workshop.sudokubook.collections.SudokuBookResponse
 import com.workshop.sudokubook.dao.SudokuTrackerDao
+import com.workshop.sudokubook.entity.SudokuTrackerEntity
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
 
 class SudokuBookServiceTest {
@@ -24,12 +37,116 @@ class SudokuBookServiceTest {
     }
 
     @Nested
-    @DisplayName("read")
-    internal inner class read {
+    @DisplayName("create")
+    internal inner class Create {
+
+        private lateinit var sudokuBookRequest: SudokuBookRequest
+        private lateinit var sudokuBookResponse: SudokuBookResponse
+
+        @BeforeEach
+        fun setup() {
+            sudokuBookRequest = Fixture.SudokuBook.sudokuBookRequest()
+
+            sudokuBookService = spy(sudokuBookService)
+            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read()
+
+            sudokuBookResponse = Fixture.SudokuBook.sudokuBookResponse()
+            doReturn(sudokuBookResponse).whenever(sudokuHttpClient).solveSudoku(any())
+            doReturn(null).whenever(sudokuTrackerDao).findBySudoku(sudokuBookRequest.sudoku)
+
+            doNothing().whenever(sudokuBookService).saveToFile(any())
+        }
+        @Test
+        fun `success create`() {
+            sudokuBookService.create()
+
+            verify(sudokuBookService, times(1)).solve(sudokuBookRequest.sudoku)
+            verify(sudokuBookService, times(1)).save(sudokuBookResponse.result)
+        }
+    }
+
+    @Nested
+    @DisplayName("transform")
+    internal inner class Transform {
+
+        private lateinit var sudokuBookRequest: SudokuBookRequest
+
+        @BeforeEach
+        fun setup() {
+            sudokuBookRequest = Fixture.SudokuBook.sudokuBookRequest()
+
+            sudokuBookService = spy(sudokuBookService)
+            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read()
+        }
 
         @Test
-        fun `success`() {
-            sudokuBookService.read()
+        fun `success transform`() {
+            sudokuBookService.transform().run {
+                assertEquals(listOf(sudokuBookRequest.sudoku), this)
+            }
+        }
+
+        @Test
+        fun `empty file transform`() {
+            doReturn(null).whenever(sudokuBookService).read()
+
+            sudokuBookService.transform().run {
+                assertEquals(emptyList<String>(), this)
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("saveToFile")
+    internal inner class SaveToFile {
+
+        private lateinit var sudokuBookResponse: SudokuBookResponse
+
+        @BeforeEach
+        fun setup() {
+            sudokuBookResponse = Fixture.SudokuBook.sudokuBookResponse()
+        }
+
+        @Test
+        fun `success saveToFile`() {
+            sudokuBookService.saveToFile(sudokuBookResponse.result)
+            val output = javaClass.classLoader.getResource("files/sudoku-book-solved.txt")
+            assertNotNull(output)
+        }
+    }
+
+    @Nested
+    @DisplayName("saveToDatabase")
+    internal inner class SaveToDatabase {
+
+        private lateinit var sudokuBookResponse: SudokuBookResponse
+        private lateinit var sudokuTrackerEntity: SudokuTrackerEntity
+
+        @BeforeEach
+        fun setup() {
+            sudokuBookResponse = Fixture.SudokuBook.sudokuBookResponse()
+            sudokuTrackerEntity = Fixture.SudokuBook.sudokuTrackerEntity()
+        }
+
+        @Test
+        fun `success saveToDatabase record exist`() {
+            doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).findBySudoku(sudokuBookResponse.result)
+            sudokuTrackerEntity.solveCounter = 1
+            doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).save(sudokuTrackerEntity)
+
+            sudokuBookService.saveToDatabase(sudokuBookResponse.result).run {
+                assertEquals(sudokuTrackerEntity, this)
+            }
+        }
+
+        @Test
+        fun `success saveToDatabase record not exist`() {
+            doReturn(null).whenever(sudokuTrackerDao).findBySudoku(sudokuBookResponse.result)
+            doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).save(any())
+
+            sudokuBookService.saveToDatabase(sudokuBookResponse.result).run {
+                assertEquals(sudokuTrackerEntity, this)
+            }
         }
     }
 }

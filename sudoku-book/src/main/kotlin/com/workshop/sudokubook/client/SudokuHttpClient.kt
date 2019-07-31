@@ -1,5 +1,6 @@
 package com.workshop.sudokubook.client
 
+import com.workshop.sudokubook.collections.SudokuBookRequest
 import com.workshop.sudokubook.collections.SudokuBookResponse
 import com.workshop.sudokubook.collections.SudokuRequest
 import com.workshop.sudokubook.properties.SudokuConfigProperties
@@ -11,7 +12,7 @@ class SudokuHttpClient(
     private val sudokuConfigProperties: SudokuConfigProperties
 ) {
 
-    fun solveSudoku(sudokuRequest: SudokuRequest): SudokuBookResponse {
-        return commonHttpClient.post("${sudokuConfigProperties.host}/sudoku/v1/solve", sudokuRequest, SudokuBookResponse::class)
+    fun solveSudoku(sudokuBookRequest: SudokuBookRequest): SudokuBookResponse {
+        return commonHttpClient.post("${sudokuConfigProperties.host}/sudoku/v1/solve", sudokuBookRequest, SudokuBookResponse::class)
     }
 }
