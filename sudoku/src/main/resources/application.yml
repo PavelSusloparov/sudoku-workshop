@@ -7,6 +7,10 @@ server:
 # Custom properties
 environment-name: local
 
+spring:
+  application:
+    name: sudoku
+
 # Actuator
 management:
   endpoints:

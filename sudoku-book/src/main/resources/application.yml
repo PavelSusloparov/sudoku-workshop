@@ -9,7 +9,7 @@ environment-name: local
 
 spring:
   application:
-    name: workshop
+    name: sudoku-book
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/main
     username: workshop_rwx

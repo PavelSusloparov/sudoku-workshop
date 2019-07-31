@@ -2,7 +2,6 @@ package com.workshop.sudokubook.client
 
 import com.workshop.sudokubook.collections.SudokuBookRequest
 import com.workshop.sudokubook.collections.SudokuBookResponse
-import com.workshop.sudokubook.collections.SudokuRequest
 import com.workshop.sudokubook.properties.SudokuConfigProperties
 import org.springframework.stereotype.Component
 

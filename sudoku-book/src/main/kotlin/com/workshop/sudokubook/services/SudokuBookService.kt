@@ -2,7 +2,6 @@ package com.workshop.sudokubook.services
 
 import com.workshop.sudokubook.client.SudokuHttpClient
 import com.workshop.sudokubook.collections.SudokuBookRequest
-import com.workshop.sudokubook.collections.SudokuRequest
 import com.workshop.sudokubook.dao.SudokuTrackerDao
 import com.workshop.sudokubook.entity.SudokuTrackerEntity
 import org.springframework.stereotype.Component

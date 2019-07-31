@@ -348,6 +348,9 @@ dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter-params")        // JUnit 5 parameterized tests
 	testImplementation("com.nhaarman:mockito-kotlin-kt1.1:1.5.0")       // Mock
 
+	//hsql
+	testImplementation("org.hsqldb:hsqldb:2.4.1")
+	
 	//Cucumber support libraries for integration tests with mocks
 	componentTestCompile(platform(kotlin("bom", version = "1.3.21")))
 	componentTestCompile(kotlin("stdlib-jdk8"))
