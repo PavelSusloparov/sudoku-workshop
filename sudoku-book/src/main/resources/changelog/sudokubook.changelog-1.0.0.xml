@@ -17,7 +17,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="solve_counter" type="INT" defaultValue="0">
+            <column name="solve_counter" type="INT" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
 

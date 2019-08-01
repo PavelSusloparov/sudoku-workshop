@@ -15,7 +15,7 @@ import kotlin.reflect.KClass
 @Component
 class CommonHttpClient(
     val hbRestTemplate: RestTemplate,
-    @Qualifier("upperCamelCaseMapper") val upperCamelCaseMapper: ObjectMapper
+    @Qualifier("objectMapper") val objectMapper: ObjectMapper
 ) {
 
     companion object {
@@ -55,7 +55,7 @@ class CommonHttpClient(
             if (!response.statusCode.is2xxSuccessful) {
                 throw Exception("Http Error while making a request $requestUrl: ${response.statusCodeValue}")
             }
-            upperCamelCaseMapper.convertValue(response.body!!, responseClass.java) // pass the response up
+            objectMapper.convertValue(response.body!!, responseClass.java) // pass the response up
         } catch (e: HttpClientErrorException) {
             logger.severe { "sendRequest(): HttpClientErrorException " + e.responseBodyAsString }
             throw Exception("sendRequest(): HttpClientErrorException " + e.responseBodyAsString)

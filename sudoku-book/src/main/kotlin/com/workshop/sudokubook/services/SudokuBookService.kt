@@ -36,10 +36,14 @@ class SudokuBookService(
      */
     fun create(filePath: String) {
         val sudokuList = transform(filePath)
+        val sb = StringBuilder()
         sudokuList.forEach {
             val solvedSudoku = solve(it)
-            save(solvedSudoku)
+            sb.append(solvedSudoku)
+            sb.append("\n============\n")
+            saveToDatabase(solvedSudoku)
         }
+        save(sb.toString(), getAbsoluteResultFilePath(filePath))
     }
 
     /**
@@ -48,7 +52,7 @@ class SudokuBookService(
     fun read(filePath: String) = javaClass.classLoader.getResource(filePath)?.readText()
 
     /**
-     * Transform a sudoku book to collection of sudokus
+     * Transform a sudoku book to collection of sudoku
      */
     fun transform(filePath: String): List<String> {
         val sudokuBook = read(filePath)
@@ -77,32 +81,39 @@ class SudokuBookService(
     /**
      * Save a sudoku
      */
-    fun save(sudoku: String?) {
+    fun save(sudoku: String?, filePath: String) {
         if (sudoku.isNullOrBlank()) {
             logger.warning("Sudoku is null. Skip")
             return
         }
-        saveToFile(sudoku)
-        saveToDatabase(sudoku)
+        saveToFile(sudoku, filePath)
     }
 
     /**
      * Save sudoku to a file
      */
-    fun saveToFile(sudoku: String) {
-        val filePath = javaClass.classLoader.getResource("files/sudoku-book.txt")?.path ?: throw Exception("Failed to find initial sudoku book")
-        val file = File(filePath.replace("sudoku-book.txt", "sudoku-book-solved.txt"))
+    fun saveToFile(sudoku: String, filePath: String) {
+        val file = File(filePath)
         file.writeText(sudoku)
-        file.writeText("============")
+    }
+
+    private fun getAbsoluteResultFilePath(filePath: String): String {
+        val absoluteFilePath = javaClass.classLoader.getResource(filePath)?.path
+            ?: throw Exception("Failed to find initial sudoku book")
+        return absoluteFilePath.replace(".txt", "-solved.txt")
     }
 
     /**
      * Save sudoku to the changelog
      */
-    fun saveToDatabase(sudoku: String): SudokuTrackerEntity {
+    fun saveToDatabase(sudoku: String?): SudokuTrackerEntity? {
+        if (sudoku.isNullOrBlank()) {
+            logger.warning("Sudoku is null. Skip")
+            return null
+        }
         var sudokuTrackerEntity = sudokuTrackerDao.findBySudoku(sudoku)
         if (sudokuTrackerEntity == null) {
-            sudokuTrackerEntity = SudokuTrackerEntity(sudoku = sudoku, solveCounter = 0)
+            sudokuTrackerEntity = SudokuTrackerEntity(sudoku = sudoku, solveCounter = 1)
         } else {
             sudokuTrackerEntity.solveCounter = sudokuTrackerEntity.solveCounter + 1
         }

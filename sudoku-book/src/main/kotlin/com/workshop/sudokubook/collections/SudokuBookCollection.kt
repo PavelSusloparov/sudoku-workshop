@@ -10,4 +10,4 @@ class SolveSudokuRequest{
 
 class SudokuBookRequest(var sudoku: String)
 
-class SudokuBookResponse(var result: String)
+class SudokuBookResponse(val result: String? = null)

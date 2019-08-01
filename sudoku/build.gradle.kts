@@ -298,16 +298,9 @@ dependencies {
 	implementation("org.codehaus.janino:janino:2.6.1")
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.9.9.1")
 
-	// Spring Boot & Cornerstone
-	implementation("com.wework.redtech:cs-spring:$cornerstoneVersion")              // Cornerstone's Spring libraries
-	implementation("com.wework.redtech:cs-jpa:$cornerstoneVersion")                 // Cornerstone's JPA libraries
-	
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
 
 	implementation("se.transmode.gradle:gradle-docker:1.2")
-
-	//MySQL
-	implementation("mysql:mysql-connector-java:8.0.16")
 
 	// Swagger OpenApi spec
 	implementation("io.springfox:springfox-swagger2:$swagger2Version")

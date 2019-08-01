@@ -16,7 +16,7 @@ import org.zalando.logbook.json.CompactingJsonBodyFilter
 
 @Configuration
 class SudokuConfig(
-    @Qualifier("upperCamelCaseMapper") val upperCamelCaseMapper: ObjectMapper
+    @Qualifier("objectMapper") val upperCamelCaseMapper: ObjectMapper
 ) {
 
     internal fun clientHttpRequestFactory(): ClientHttpRequestFactory {

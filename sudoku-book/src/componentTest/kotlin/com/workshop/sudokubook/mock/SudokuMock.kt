@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component
 class SudokuMock {
 
     fun solveSudoku() {
-        val solveSudokuResponse = javaClass.classLoader.getResource("json/solve-sudoku.json").readText()
+        val solveSudokuResponse = javaClass.classLoader.getResource("json/solve-sudoku.json")?.readText()
+            ?: throw Exception("Response file does not exist")
         WireMock.stubFor(
-            WireMock.get(WireMock.urlMatching("/sudoku/v1/solve"))
+            WireMock.post(WireMock.urlMatching("/sudoku/v1/solve"))
                 .willReturn(
                     WireMock.aResponse()
                         .withStatus(200)

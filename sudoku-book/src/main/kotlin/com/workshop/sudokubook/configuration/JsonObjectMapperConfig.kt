@@ -8,10 +8,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class JsonObjectMapperConfig {
 
-    @Bean("upperCamelCaseMapper")
-    fun upperCamelCaseMapper(): ObjectMapper {
-        val mapper = ObjectMapper()
-        mapper.propertyNamingStrategy = PropertyNamingStrategy.UPPER_CAMEL_CASE
-        return mapper
-    }
+    @Bean("objectMapper")
+    fun upperCamelCaseMapper() = ObjectMapper()
 }

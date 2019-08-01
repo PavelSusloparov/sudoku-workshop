@@ -12,5 +12,4 @@ class SudokuBookContractStepDefs {
     @Then("response contains solved sudoku")
     fun `response contains solved sudoku`() {
     }
-
 }
