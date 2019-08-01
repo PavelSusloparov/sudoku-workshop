@@ -1,6 +1,6 @@
 
 # Custom properties
-environment-name: component-test
+environment-name: localhost
 
 spring:
   application:

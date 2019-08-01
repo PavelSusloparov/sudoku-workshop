@@ -1,6 +1,5 @@
-
 # Custom properties
-environment-name: component-test
+environment-name: localhost
 
 spring:
   application:
@@ -24,6 +23,3 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
-
-sudoku:
-  host: http://0.0.0.0:${wiremock.server.port}/
