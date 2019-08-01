@@ -10,7 +10,6 @@ import javax.persistence.EntityManager
 import javax.persistence.EntityManagerFactory
 
 @Configuration
-@ComponentScan(basePackageClasses = [EntityDao::class])
 internal class TestConfig : StandaloneTestJpaConfig(entityClass = BaseEntity::class, hbm2ddl = true) {
 
     @Bean

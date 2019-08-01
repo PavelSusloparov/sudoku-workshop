@@ -3,6 +3,7 @@ package com.workshop.sudokubook.dao
 import com.wework.jpa.JpaBean
 import com.workshop.sudokubook.DbTestExtension
 import com.workshop.sudokubook.TestConfig
+import com.workshop.sudokubook.entity.EntityDao
 import com.workshop.sudokubook.entity.TestEntity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -13,10 +14,11 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 import org.springframework.test.context.ContextConfiguration
 
 @ExtendWith(DbTestExtension::class)
-@ContextConfiguration(classes = [TestConfig::class])
+@ContextConfiguration(classes = [TestConfig::class, TestDao::class])
 internal class EntityDaoTest {
 
     @Autowired
