@@ -28,6 +28,12 @@ fun String.toBoard(): Sudoku.Board {
 class Sudoku {
 
     data class Board(private val cells: ArrayList<Cell> = ArrayList<Cell>().fill(size * size, Cell())) {
+
+        companion object {
+            const val size = 9
+            const val squareSize = size / 3
+        }
+
         private val positionedCells: List<PositionedCell>
             get() = cells.mapIndexed { i, cell -> PositionedCell(Point(i % size, i / size), cell) }
 
@@ -86,11 +92,6 @@ class Sudoku {
                     }
                 }
             }
-        }
-
-        companion object {
-            const val size = 9
-            const val squareSize = size / 3
         }
     }
 
