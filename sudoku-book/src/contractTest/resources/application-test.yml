@@ -1,0 +1,29 @@
+
+# Custom properties
+environment-name: component-test
+
+spring:
+  application:
+    name: sudoku-book
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:testdb;sql.syntax_mys=true
+    username: sa
+    password: sa
+    hikari:
+      maximum-pool-size: 4
+      pool-name: test-dbpool
+      auto-commit: false
+
+  data:
+    jpa:
+      repositories:
+        enabled: false
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+sudoku:
+  host: http://0.0.0.0:${wiremock.server.port}/

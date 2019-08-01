@@ -34,8 +34,8 @@ class SudokuBookService(
     /**
      * Create a solved sudoku book
      */
-    fun create() {
-        val sudokuList = transform()
+    fun create(filePath: String) {
+        val sudokuList = transform(filePath)
         sudokuList.forEach {
             val solvedSudoku = solve(it)
             save(solvedSudoku)
@@ -45,13 +45,13 @@ class SudokuBookService(
     /**
      * Read a sudoku book
      */
-    fun read() = javaClass.classLoader.getResource("files/sudoku-book.txt")?.readText()
+    fun read(filePath: String) = javaClass.classLoader.getResource(filePath)?.readText()
 
     /**
      * Transform a sudoku book to collection of sudokus
      */
-    fun transform(): List<String> {
-        val sudokuBook = read()
+    fun transform(filePath: String): List<String> {
+        val sudokuBook = read(filePath)
         val sudokuList = sudokuBook?.split("============\n".toRegex()) ?: emptyList()
         sudokuList.forEach {
             logger.info { "sudokuList: $it" }

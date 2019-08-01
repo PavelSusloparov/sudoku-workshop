@@ -41,6 +41,10 @@ spring:
       console:
         enabled: true
 
+  # Liquibase
+  liquibase:
+    change-log: classpath:/sudokubook.changelog.xml
+
 # Actuator
 management:
   endpoints:

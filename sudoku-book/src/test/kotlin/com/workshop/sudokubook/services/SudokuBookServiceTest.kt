@@ -50,7 +50,7 @@ class SudokuBookServiceTest {
             sudokuBookRequest = Fixture.SudokuBook.sudokuBookRequest()
 
             sudokuBookService = spy(sudokuBookService)
-            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read()
+            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read(any())
 
             sudokuBookResponse = Fixture.SudokuBook.sudokuBookResponse()
             doReturn(sudokuBookResponse).whenever(sudokuHttpClient).solveSudoku(any())
@@ -60,7 +60,7 @@ class SudokuBookServiceTest {
         }
         @Test
         fun `verify that create is successful if the sudoku book is not empty`() {
-            sudokuBookService.create()
+            sudokuBookService.create("")
 
             verify(sudokuBookService, times(1)).solve(sudokuBookRequest.sudoku)
             verify(sudokuBookService, times(1)).save(sudokuBookResponse.result)
@@ -78,21 +78,21 @@ class SudokuBookServiceTest {
             sudokuBookRequest = Fixture.SudokuBook.sudokuBookRequest()
 
             sudokuBookService = spy(sudokuBookService)
-            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read()
+            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read(any())
         }
 
         @Test
         fun `verify that transform return a list of sudoku if sudoku book is not empty`() {
-            sudokuBookService.transform().run {
+            sudokuBookService.transform("").run {
                 assertEquals(listOf(sudokuBookRequest.sudoku), this)
             }
         }
 
         @Test
         fun `verify that transform returns empty list of sudoku if sudoku book is empty`() {
-            doReturn(null).whenever(sudokuBookService).read()
+            doReturn(null).whenever(sudokuBookService).read(any())
 
-            sudokuBookService.transform().run {
+            sudokuBookService.transform("").run {
                 assertEquals(emptyList<String>(), this)
             }
         }
@@ -111,7 +111,7 @@ class SudokuBookServiceTest {
             sudokuBookResponse = Fixture.SudokuBook.sudokuBookResponse()
 
             sudokuBookService = spy(sudokuBookService)
-            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read()
+            doReturn(sudokuBookRequest.sudoku).whenever(sudokuBookService).read(any())
         }
 
         @Test

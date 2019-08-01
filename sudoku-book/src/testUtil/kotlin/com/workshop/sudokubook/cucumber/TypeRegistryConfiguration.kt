@@ -1,4 +1,4 @@
-package com.wework.costmanagement.cucumber.configuration
+package com.workshop.sudokubook.cucumber
 
 import cucumber.api.TypeRegistryConfigurer
 import cucumber.api.TypeRegistry

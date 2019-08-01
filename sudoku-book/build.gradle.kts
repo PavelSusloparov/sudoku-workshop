@@ -271,9 +271,7 @@ check.dependsOn(ktlintCheck)
 jacocoTestReport.dependsOn(test)
 jacocoTestCoverageVerification.dependsOn(test)
 
-// make sure SonarQube depends on the Jacoco test report
-val sonarqube: SonarQubeTask by tasks
-sonarqube.dependsOn(jacocoTestReport)
+configurations.create("liquidbase")
 
 val cornerstoneVersion = "0.3.0"
 val springBootVersion = "2.1.4.RELEASE"
@@ -370,6 +368,9 @@ dependencies {
 	componentTestCompile("junit:junit:$junit4Version")
 	componentTestCompile("org.springframework.cloud:spring-cloud-contract-wiremock:$wiremockVersion")
 
+	//hsql
+	componentTestCompile("org.hsqldb:hsqldb:2.4.1")
+
 	//Cucumber support libraries for contract tests
 	contractTestCompile(platform(kotlin("bom", version = "1.3.21")))
 	contractTestCompile(kotlin("stdlib-jdk8"))
@@ -386,6 +387,9 @@ dependencies {
 	contractTestCompile("io.cucumber:cucumber-junit:$cucumberVersion")
 	contractTestCompile("io.cucumber:cucumber-spring:$cucumberVersion")
 	contractTestCompile("junit:junit:$junit4Version")
+
+	//hsql
+	contractTestCompile("org.hsqldb:hsqldb:2.4.1")
 
 	//testUtil dependencies
 	testUtilCompile(platform(kotlin("bom", version = "1.3.21")))
