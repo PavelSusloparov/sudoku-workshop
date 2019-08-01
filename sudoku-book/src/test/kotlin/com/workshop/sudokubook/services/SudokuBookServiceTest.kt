@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import java.lang.StringBuilder
 
 class SudokuBookServiceTest {
 
@@ -56,14 +57,17 @@ class SudokuBookServiceTest {
             doReturn(sudokuBookResponse).whenever(sudokuHttpClient).solveSudoku(any())
             doReturn(null).whenever(sudokuTrackerDao).findBySudoku(sudokuBookRequest.sudoku)
 
-            doNothing().whenever(sudokuBookService).saveToFile(any())
+            doNothing().whenever(sudokuBookService).saveToFile(any(), any())
+
+            doReturn("").whenever(sudokuBookService).getAbsoluteResultFilePath("")
         }
         @Test
         fun `verify that create is successful if the sudoku book is not empty`() {
             sudokuBookService.create("")
 
             verify(sudokuBookService, times(1)).solve(sudokuBookRequest.sudoku)
-            verify(sudokuBookService, times(1)).save(sudokuBookResponse.result)
+            val sb = StringBuilder().append(sudokuBookResponse.result).append("\n============\n")
+            verify(sudokuBookService, times(1)).save(sb.toString(), "")
         }
     }
 
@@ -130,33 +134,15 @@ class SudokuBookServiceTest {
         @BeforeEach
         fun setup() {
             sudokuBookService = spy(sudokuBookService)
+            doReturn("").whenever(sudokuBookService).getAbsoluteResultFilePath("")
         }
 
         @Test
-        fun `verify that sudoku is not saved is empty`() {
-            sudokuBookService.save(null)
+        fun `verify that sudoku is not saved if empty`() {
+            sudokuBookService.save(null, "")
 
-            verify(sudokuBookService, times(0)).saveToFile(any())
+            verify(sudokuBookService, times(0)).saveToFile(any(), any())
             verify(sudokuBookService, times(0)).saveToDatabase(any())
-        }
-    }
-
-    @Nested
-    @DisplayName("saveToFile")
-    internal inner class SaveToFile {
-
-        private lateinit var sudokuBookResponse: SudokuBookResponse
-
-        @BeforeEach
-        fun setup() {
-            sudokuBookResponse = Fixture.SudokuBook.sudokuBookResponse()
-        }
-
-        @Test
-        fun `verify that file is created after saveToFile`() {
-            sudokuBookService.saveToFile(sudokuBookResponse.result)
-            val output = javaClass.classLoader.getResource("files/sudoku-book-solved.txt")
-            assertNotNull(output)
         }
     }
 
@@ -175,7 +161,7 @@ class SudokuBookServiceTest {
 
         @Test
         fun `verify that record is updated in database if it is already exist`() {
-            doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).findBySudoku(sudokuBookResponse.result)
+            doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).findBySudoku(sudokuBookResponse.result!!)
             sudokuTrackerEntity.solveCounter = 1
             doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).save(sudokuTrackerEntity)
 
@@ -186,7 +172,7 @@ class SudokuBookServiceTest {
 
         @Test
         fun `verify that record is created in database if it is not exist`() {
-            doReturn(null).whenever(sudokuTrackerDao).findBySudoku(sudokuBookResponse.result)
+            doReturn(null).whenever(sudokuTrackerDao).findBySudoku(sudokuBookResponse.result!!)
             doReturn(sudokuTrackerEntity).whenever(sudokuTrackerDao).save(any())
 
             sudokuBookService.saveToDatabase(sudokuBookResponse.result).run {

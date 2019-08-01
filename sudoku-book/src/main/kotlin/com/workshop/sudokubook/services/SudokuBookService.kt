@@ -79,12 +79,9 @@ class SudokuBookService(
     /**
      * Save sudoku to a file
      */
-    fun saveToFile(sudoku: String, filePath: String) {
-        val file = File(filePath)
-        file.writeText(sudoku)
-    }
+    fun saveToFile(sudoku: String, filePath: String) = File(filePath).writeText(sudoku)
 
-    private fun getAbsoluteResultFilePath(filePath: String): String {
+    fun getAbsoluteResultFilePath(filePath: String): String {
         val absoluteFilePath = javaClass.classLoader.getResource(filePath)?.path
             ?: throw Exception("Failed to find initial sudoku book")
         return absoluteFilePath.replace(".txt", "-solved.txt")

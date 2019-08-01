@@ -4,8 +4,6 @@ import com.workshop.sudokubook.collection.SudokuBookWorld
 import com.workshop.sudokubook.dao.SudokuTrackerDao
 import com.workshop.sudokubook.mock.SudokuMock
 import com.workshop.sudokubook.services.SudokuBookService
-import cucumber.api.java.After
-import cucumber.api.java.Before
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
@@ -46,5 +44,4 @@ class SudokuBookComponentStepDefs(
             assertEquals(sudokuBookWorld.solveCounter!!, it.solveCounter)
         }
     }
-
 }
