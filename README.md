@@ -12,6 +12,7 @@ The repo is an example of integration between 2 applications with Rest API JSON.
 
 We provide digital entertainment services for the global market. Our first product is Sudoku Book.
 More about sudoku [here](https://en.wikipedia.org/wiki/Sudoku)
+
 Our first feature is to create automatic Sudoku Book solver to help people be better at the game.
 
 ## Technical Pre-requirements
@@ -60,4 +61,9 @@ You should see - {"status": "UP"}
 ## Begin Workshop
 
 [Continue here](WORKSHOP.md)
+
+## Help needed?
+
+Check `solution` branch for the complete solution.
+
 
