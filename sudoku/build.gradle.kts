@@ -20,7 +20,7 @@ plugins {
 	// The Spring Boot Gradle Plugin provides Spring Boot support in Gradle, allowing you to package
 	// executable jar or war archives, run Spring Boot applications, and use the dependency management
 	// provided by spring-boot-dependencies.
-	id("org.springframework.boot")                  version "2.1.3.RELEASE" // Note: Make sure this is in sync with Cornerstone Spring Boot version
+	id("org.springframework.boot")                  version "2.1.3.RELEASE"
 
 	// Code Coverage plugin
 	jacoco
@@ -275,7 +275,6 @@ jacocoTestCoverageVerification.dependsOn(test)
 val sonarqube: SonarQubeTask by tasks
 sonarqube.dependsOn(jacocoTestReport)
 
-val cornerstoneVersion = "0.3.0"
 val springBootVersion = "2.1.4.RELEASE"
 val cucumberVersion = "4.3.0"
 val wiremockVersion = "2.1.1.RELEASE"

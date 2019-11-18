@@ -1,7 +1,7 @@
 package com.workshop.sudokubook
 
-import com.wework.jpa.StandaloneTestJpaConfig
 import com.workshop.sudokubook.entity.BaseEntity
+import com.workshop.sudokubook.jpa.StandaloneTestJpaConfig
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import javax.persistence.EntityManager

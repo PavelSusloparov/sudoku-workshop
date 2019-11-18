@@ -1,6 +1,6 @@
 package com.workshop.sudokubook.cucumber
 
-import com.wework.jdbc.buildTestDataSource
+import com.workshop.sudokubook.jdbc.buildTestDataSource
 import cucumber.api.java.After
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.datasource.DataSourceTransactionManager

@@ -6,7 +6,7 @@ services:
     ports:
       - "3308:3306"
     env_file:
-      - .sec.env
+      - sec.env
     volumes:
       - "./conf.d:/etc/mysql/conf.d:ro"
       - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
@@ -15,7 +15,7 @@ services:
     restart: always
     image: sudoku:0.0.1-SNAPSHOT
     env_file:
-      - .sec.env
+      - sec.env
     ports:
       - "8102:8102"
   sudoku-book:
@@ -23,7 +23,7 @@ services:
     restart: always
     image: sudoku-book:0.0.1-SNAPSHOT
     env_file:
-      - .sec.env
+      - sec.env
     ports:
       - "8103:8103"
     depends_on:

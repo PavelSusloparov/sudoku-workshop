@@ -20,7 +20,7 @@ plugins {
 	// The Spring Boot Gradle Plugin provides Spring Boot support in Gradle, allowing you to package
 	// executable jar or war archives, run Spring Boot applications, and use the dependency management
 	// provided by spring-boot-dependencies.
-	id("org.springframework.boot")                  version "2.1.3.RELEASE" // Note: Make sure this is in sync with Cornerstone Spring Boot version
+	id("org.springframework.boot")                  version "2.1.3.RELEASE"
 
 	// Code Coverage plugin
 	jacoco
@@ -273,7 +273,8 @@ jacocoTestCoverageVerification.dependsOn(test)
 
 configurations.create("liquidbase")
 
-val cornerstoneVersion = "0.3.0"
+val liquibaseVersion = "3.8.0"
+val hikaricpVersion = "3.4.1"
 val springBootVersion = "2.1.4.RELEASE"
 val cucumberVersion = "4.3.0"
 val wiremockVersion = "2.1.1.RELEASE"
@@ -296,12 +297,14 @@ dependencies {
 	implementation("org.codehaus.janino:janino:2.6.1")
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.9.9.1")
 
-	// Spring Boot & Cornerstone
-	implementation("com.wework.redtech:cs-spring:$cornerstoneVersion")              // Cornerstone's Spring libraries
-	implementation("com.wework.redtech:cs-jpa:$cornerstoneVersion")                 // Cornerstone's JPA libraries
-
 	implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
+
+	// Hibernate / Database
+	implementation("org.liquibase:liquibase-core:$liquibaseVersion")
+	implementation("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2")
+	implementation("com.zaxxer:HikariCP:$hikaricpVersion")
+	implementation("javax.transaction:jta:1.1")
 
 	implementation("se.transmode.gradle:gradle-docker:1.2")
 
@@ -409,8 +412,11 @@ dependencies {
 	testUtilCompile("io.cucumber:cucumber-spring:$cucumberVersion")
 	testUtilCompile("junit:junit:$junit4Version")
 	testUtilCompile("org.springframework.cloud:spring-cloud-contract-wiremock:$wiremockVersion")
+	testUtilCompile("org.springframework:spring-jdbc:5.1.10.RELEASE")
 
-	// Spring Boot & Cornerstone
-	testUtilCompile("com.wework.redtech:cs-spring:$cornerstoneVersion")              // Cornerstone's Spring libraries
-	testUtilCompile("com.wework.redtech:cs-jpa:$cornerstoneVersion")                 // Cornerstone's JPA libraries
+	// Hibernate / Database
+	testUtilCompile("org.liquibase:liquibase-core:$liquibaseVersion")
+	testUtilCompile("org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2")
+	testUtilCompile("com.zaxxer:HikariCP:$hikaricpVersion")
+	testUtilCompile("javax.transaction:jta:1.1")
 }

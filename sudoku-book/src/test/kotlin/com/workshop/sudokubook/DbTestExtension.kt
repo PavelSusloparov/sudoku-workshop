@@ -1,6 +1,6 @@
 package com.workshop.sudokubook
 
-import com.wework.jdbc.buildTestDataSource
+import com.workshop.sudokubook.jdbc.buildTestDataSource
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.datasource.DataSourceTransactionManager

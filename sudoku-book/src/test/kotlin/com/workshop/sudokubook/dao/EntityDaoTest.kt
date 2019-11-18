@@ -1,9 +1,9 @@
 package com.workshop.sudokubook.dao
 
-import com.wework.jpa.JpaBean
 import com.workshop.sudokubook.DbTestExtension
 import com.workshop.sudokubook.TestConfig
 import com.workshop.sudokubook.entity.TestEntity
+import com.workshop.sudokubook.jpa.JpaBean
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull

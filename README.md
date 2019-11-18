@@ -1,6 +1,6 @@
 # Testing workshop
 
-The repo is example of integration between 2 applications with Rest API JSON. Integration includes best practises, such as:
+The repo is an example of integration between 2 applications with Rest API JSON. Integration includes best practices, such as:
 
 * Contract testing with Cucumber and JUnit
 * Component testing with WireMock, Cucumber and JUnit
@@ -8,7 +8,13 @@ The repo is example of integration between 2 applications with Rest API JSON. In
 * Unit tests code coverage with Jacoco
 * API documentation with OpenAPI specification
 
-## Pre-requirements
+## Workshop agenda
+
+We provide digital entertainment services for the global market. Our first product is Sudoku Book.
+More about sudoku [here](https://en.wikipedia.org/wiki/Sudoku)
+Our first feature is to create automatic Sudoku Book solver to help people be better at the game.
+
+## Technical Pre-requirements
 
 1. Install [docker](https://docs.docker.com/docker-for-mac/install/)
 
@@ -18,6 +24,10 @@ The repo is example of integration between 2 applications with Rest API JSON. In
 
 4. Clone this repository
 
+5. In IntelijIdea. File -> New -> Module from Existing Source -> Gradle -> Choose sudoku
+
+6. In IntelijIdea. File -> New -> Module from Existing Source -> Gradle -> Choose sudoku-book
+
 ## Services start
 
 ```bash
@@ -25,6 +35,11 @@ The repo is example of integration between 2 applications with Rest API JSON. In
 ```
 
 ## Verification
+Check that all containers are running
+
+```bash
+docker ps
+```
 
 ### Sudoku service
 

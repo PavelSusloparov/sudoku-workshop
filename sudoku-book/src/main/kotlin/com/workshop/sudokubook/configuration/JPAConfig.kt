@@ -1,6 +1,6 @@
 package com.workshop.sudokubook.configuration
 
-import com.wework.jpa.JpaBean
+import com.workshop.sudokubook.jpa.JpaBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 

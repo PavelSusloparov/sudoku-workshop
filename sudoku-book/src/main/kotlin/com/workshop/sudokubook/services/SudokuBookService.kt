@@ -1,7 +1,6 @@
 package com.workshop.sudokubook.services
 
 import com.workshop.sudokubook.client.SudokuHttpClient
-import com.workshop.sudokubook.collections.SudokuBookRequest
 import com.workshop.sudokubook.dao.SudokuTrackerDao
 import com.workshop.sudokubook.entity.SudokuTrackerEntity
 import org.springframework.stereotype.Component
@@ -54,26 +53,15 @@ class SudokuBookService(
      * Solve a sudoku
      */
     fun solve(sudoku: String): String? {
-        return try {
-            val sudokuBookRequest = SudokuBookRequest(sudoku)
-            val sudokuBookResponse = sudokuHttpClient.solveSudoku(sudokuBookRequest)
-            logger.info { "sudokuBookResponse: $sudokuBookResponse" }
-            sudokuBookResponse.result
-        } catch (ex: Exception) {
-            logger.severe { "Failed to solve the sudoku. Exception: ${ex.printStackTrace()}" }
-            null
-        }
+        // TODO: Implement me
+        return ""
     }
 
     /**
-     * Save a sudoku
+     * Save list of sudoku to a file
      */
     fun save(sudoku: String?, filePath: String) {
-        if (sudoku.isNullOrBlank()) {
-            logger.warning("Sudoku is null. Skip")
-            return
-        }
-        saveToFile(sudoku, filePath)
+        // TODO: Implement me
     }
 
     /**
@@ -91,16 +79,7 @@ class SudokuBookService(
      * Save sudoku to the changelog
      */
     fun saveToDatabase(sudoku: String?): SudokuTrackerEntity? {
-        if (sudoku.isNullOrBlank()) {
-            logger.warning("Sudoku is null. Skip")
-            return null
-        }
-        var sudokuTrackerEntity = sudokuTrackerDao.findBySudoku(sudoku)
-        if (sudokuTrackerEntity == null) {
-            sudokuTrackerEntity = SudokuTrackerEntity(sudoku = sudoku, solveCounter = 1)
-        } else {
-            sudokuTrackerEntity.solveCounter = sudokuTrackerEntity.solveCounter + 1
-        }
-        return sudokuTrackerDao.save(sudokuTrackerEntity)
+        // TODO: Implement me
+        return null
     }
 }
