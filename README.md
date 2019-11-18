@@ -62,7 +62,7 @@ You should see - {"status": "UP"}
 
 [Continue here](WORKSHOP.md)
 
-## Help needed?
+## Need help?
 
 Check `solution` branch for the complete solution.
 
