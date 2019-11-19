@@ -1,4 +1,4 @@
-# Testing workshop
+# Sudoku workshop
 
 The repo is an example of integration between 2 applications with Rest API JSON. Integration includes best practices, such as:
 
